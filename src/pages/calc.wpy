@@ -1,0 +1,26 @@
+<style lang="less">
+
+</style>
+<template>
+  <view class="container">
+    <text>{{text}}</text>
+    <button @tap="add">add line</button>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class Calc extends wepy.page {
+    data = {
+        text: "ming is nice."
+    }
+
+    methods = {
+        add(){
+            console.log("my tap")
+            this.text += "hi"
+        }
+    }
+  }
+</script>
