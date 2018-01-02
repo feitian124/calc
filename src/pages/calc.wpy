@@ -1,44 +1,55 @@
 <style lang="less">
+page {
+  height: 100%;
+}
 .container {
+  background-color: black;
+}
+.buttons {
   display: flex;
   flex-flow: row wrap;
-  background-color: black;
 }
 .display {
   background-color: red;
   width: 100%;
 }
 button {
-  background-color: grey;
-  width: 33.3%;
+  width: 25%;
   justify-content: space-between;
+  background-color: grey;
 }
 </style>
 
 <template>
-  <view class="container">
-    <text class="display">{{text}}</text>
+<view class="container">
+  <text class="display">{{text}}</text>
+  <view class="buttons">
     <button @tap="tap">C</button>
     <button @tap="tap">《</button>
     <button @tap="tap">%</button>
     <button @tap="tap">➗</button>
     
-    <button @tap="tap">+</button>
-    <button @tap="tap">-</button>
-    <button @tap="tap">=</button>
-    <button @tap="tap">()</button>
-    <button @tap="tap">.</button>
-    <button @tap="tap">1</button>
-    <button @tap="tap">2</button>
-    <button @tap="tap">3</button>
-    <button @tap="tap">4</button>
-    <button @tap="tap">5</button>
-    <button @tap="tap">6</button>
     <button @tap="tap">7</button>
     <button @tap="tap">8</button>
     <button @tap="tap">9</button>
+    <button @tap="tap">x</button>
+
+    <button @tap="tap">4</button>
+    <button @tap="tap">5</button>
+    <button @tap="tap">6</button>
+    <button @tap="tap">-</button>
+
+    <button @tap="tap">1</button>
+    <button @tap="tap">2</button>
+    <button @tap="tap">3</button>
+    <button @tap="tap">+</button>
+ 
+    <button @tap="tap">()</button>
     <button @tap="tap">0</button>
+    <button @tap="tap">.</button>
+    <button @tap="tap">=</button>
   </view>
+</view>
 </template>
 
 <script>
