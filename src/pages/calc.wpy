@@ -75,7 +75,7 @@ button {
       <button @tap="tap" data-id="0">0</button>
       <button @tap="tap" data-id=".">.</button>
       <button @tap="tap" data-id="()">()</button>
-      <button class="orange" @tap="tap" data-id="=">=</button>
+      <button class="orange" @tap="result" data-id="=">=</button>
     </view>
   </view>
 </view>
@@ -102,6 +102,9 @@ button {
         if (this.text.length >= 1) {
           this.text = this.text.substring(0, this.text.length - 1)
         }
+      },
+      result () {
+        console.log('resutl: ' + this.text)
       }
     }
   }
