@@ -11,7 +11,8 @@
 .display {
   text-align: right;
   width: 100%;
-  line-height: 260rpx;
+  min-height:260rpx;
+  line-height: 200rpx;
 }
 .buttons {
   width: 100%;
@@ -47,34 +48,34 @@ button {
   <view class="display">{{text}}</view>
   <view class="buttons">
     <view class="row">
-      <button class="orange" @tap="tap">C</button>
-      <button class="orange" @tap="tap">←</button>
-      <button class="orange" @tap="tap">%</button>
-      <button class="orange" @tap="tap">÷</button>
+      <button class="orange" @tap="clean" data-id="C">C</button>
+      <button class="orange" @tap="del" data-id="←">←</button>
+      <button class="orange" @tap="tap" data-id="%">%</button>
+      <button class="orange" @tap="tap" data-id="÷">÷</button>
     </view>
     <view class="row"> 
-      <button @tap="tap">7</button>
-      <button @tap="tap">8</button>
-      <button @tap="tap">9</button>
-      <button class="orange" @tap="tap">x</button>
+      <button @tap="tap" data-id="7">7</button>
+      <button @tap="tap" data-id="8">8</button>
+      <button @tap="tap" data-id="9">9</button>
+      <button class="orange" @tap="tap" data-id="x">x</button>
     </view>
     <view class="row"> 
-      <button @tap="tap">4</button>
-      <button @tap="tap">5</button>
-      <button @tap="tap">6</button>
-      <button class="orange" @tap="tap">-</button>
+      <button @tap="tap" data-id="4">4</button>
+      <button @tap="tap" data-id="5">5</button>
+      <button @tap="tap" data-id="6">6</button>
+      <button class="orange" @tap="tap" data-id="-">-</button>
     </view>
     <view class="row"> 
-      <button @tap="tap">1</button>
-      <button @tap="tap">2</button>
-      <button @tap="tap">3</button>
-      <button class="orange" @tap="tap">+</button>
+      <button @tap="tap" data-id="1">1</button>
+      <button @tap="tap" data-id="2">2</button>
+      <button @tap="tap" data-id="3">3</button>
+      <button class="orange" @tap="tap" data-id="+">+</button>
     </view>
-    <view class="row">  
-      <button @tap="tap">0</button>
-      <button @tap="tap">.</button>
-      <button @tap="tap">()</button>
-      <button class="orange" @tap="tap">=</button>
+    <view class="row">
+      <button @tap="tap" data-id="0">0</button>
+      <button @tap="tap" data-id=".">.</button>
+      <button @tap="tap" data-id="()">()</button>
+      <button class="orange" @tap="tap" data-id="=">=</button>
     </view>
   </view>
 </view>
@@ -85,13 +86,22 @@ button {
 
   export default class Calc extends wepy.page {
     data = {
-      text: 'ming is nice.'
+      text: ''
     }
 
     methods = {
-      tap () {
-        console.log('tapped ' + this.$name)
-        this.text += 'hi'
+      tap (e) {
+        let value = e.target.dataset.id
+        console.log('tapped ' + value)
+        this.text += value
+      },
+      clean () {
+        this.text = ''
+      },
+      del () {
+        if (this.text.length >= 1) {
+          this.text = this.text.substring(0, this.text.length - 1)
+        }
       }
     }
   }
