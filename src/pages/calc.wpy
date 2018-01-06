@@ -1,25 +1,44 @@
 <style lang="less">
-page {
-  height: 100%;
-}
 .container {
-  background-color: black;
-}
-.buttons {
+  height: 100%;
   display: flex;
-  flex-flow: row wrap;
+  flex-direction: column;
+  align-items: center;
+  background-color: #ccc;
+  font-family: "Microsoft YaHei";
+  overflow-x: hidden;
 }
 .display {
-  background-color: red;
   text-align: right;
-  vertical-align: text-bottom;
   width: 100%;
-  height: 65%;
+  line-height: 260rpx;
+}
+.buttons {
+  width: 100%;
+}
+.row {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  width: 100%;
+  height: 5rem;
+  background-color: #fff;
 }
 button {
-  width: 25%;
-  justify-content: space-between;
-  background-color: grey;
+  width:25%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 1px;
+  margin-right: 1px;
+  color:#d9eef7;
+  background-color: #0095cd;
+}
+.orange {
+    color: #fef4e9;
+    background: #f78d1d;
+    font-weight: bold;
 }
 </style>
 
@@ -27,30 +46,36 @@ button {
 <view class="container">
   <view class="display">{{text}}</view>
   <view class="buttons">
-    <button @tap="tap">C</button>
-    <button @tap="tap">《</button>
-    <button @tap="tap">%</button>
-    <button @tap="tap">➗</button>
-    
-    <button @tap="tap">7</button>
-    <button @tap="tap">8</button>
-    <button @tap="tap">9</button>
-    <button @tap="tap">x</button>
-
-    <button @tap="tap">4</button>
-    <button @tap="tap">5</button>
-    <button @tap="tap">6</button>
-    <button @tap="tap">-</button>
-
-    <button @tap="tap">1</button>
-    <button @tap="tap">2</button>
-    <button @tap="tap">3</button>
-    <button @tap="tap">+</button>
- 
-    <button @tap="tap">()</button>
-    <button @tap="tap">0</button>
-    <button @tap="tap">.</button>
-    <button @tap="tap">=</button>
+    <view class="row">
+      <button class="orange" @tap="tap">C</button>
+      <button class="orange" @tap="tap">←</button>
+      <button class="orange" @tap="tap">%</button>
+      <button class="orange" @tap="tap">÷</button>
+    </view>
+    <view class="row"> 
+      <button @tap="tap">7</button>
+      <button @tap="tap">8</button>
+      <button @tap="tap">9</button>
+      <button class="orange" @tap="tap">x</button>
+    </view>
+    <view class="row"> 
+      <button @tap="tap">4</button>
+      <button @tap="tap">5</button>
+      <button @tap="tap">6</button>
+      <button class="orange" @tap="tap">-</button>
+    </view>
+    <view class="row"> 
+      <button @tap="tap">1</button>
+      <button @tap="tap">2</button>
+      <button @tap="tap">3</button>
+      <button class="orange" @tap="tap">+</button>
+    </view>
+    <view class="row">  
+      <button @tap="tap">0</button>
+      <button @tap="tap">.</button>
+      <button @tap="tap">()</button>
+      <button class="orange" @tap="tap">=</button>
+    </view>
   </view>
 </view>
 </template>
