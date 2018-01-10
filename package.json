@@ -11,7 +11,9 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "big.js": "^5.0.3",
     "bulma": "^0.6.1",
+    "expr-eval": "^1.2.1",
     "wepy": "^1.6.0",
     "wepy-async-function": "^1.4.4",
     "wepy-com-toast": "^1.0.2"
