@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import 'mocha';
 
 describe('Stack', () => {
-  it('push should work', () => {
+  it('push one value to stack, can peek the value, and the stack should not be empty', () => {
     let stack = new Stack();
     let num = Math.random();
     stack.push(num);
@@ -11,7 +11,7 @@ describe('Stack', () => {
     expect(stack.isEmpty()).to.not.be.ok;
   });
 
-  it('pop should work', () => {
+  it('push one value to stack, can pop the value, and the stack should be  empty', () => {
     let stack = new Stack();
     let num = Math.random();
     stack.push(num);

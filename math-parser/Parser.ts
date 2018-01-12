@@ -5,7 +5,7 @@
 
 import Stack from "./Stack";
 
-export default class MathParser {
+export default class Parser {
   inputs: Stack;
   outputs: Stack;
 

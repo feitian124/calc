@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "wepy build --watch",
     "build": "cross-env NODE_ENV=production wepy build --no-cache",
-    "test": "./node_modules/.bin/mocha -r ./node_modules/ts-node/register express/test/**/*.ts"
+    "test": "./node_modules/.bin/mocha -r ./node_modules/ts-node/register math-parser/test/**/*.ts"
   },
   "author": "",
   "license": "MIT",
