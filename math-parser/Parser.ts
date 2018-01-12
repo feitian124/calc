@@ -41,13 +41,14 @@ dal2Rpn(exp){
     var outputStack = [];
     var outputQueue = [];
 
+    console.log(exp);
+
     for(var i = 0, len = exp.length; i < len; i++){
         var cur = exp[i];
         if(cur != ' ' ){
             inputStack.push(cur);
         }
     }
-    console.log('step one');
     while(inputStack.length > 0){
         var cur = inputStack.shift();
         if(this.isOperator(cur)){
@@ -72,7 +73,6 @@ dal2Rpn(exp){
             outputQueue.push(new Number(cur));
         }
     }
-    console.log('step two');
     if(outputStack.length > 0){
         if(outputStack[outputStack.length - 1] == ')' || outputStack[outputStack.length - 1] == '('){
             throw "error: unmatched ()";
@@ -81,7 +81,6 @@ dal2Rpn(exp){
             outputQueue.push(outputStack.pop());
         }
     }
-    console.log('step three');
     return outputQueue;
   }
 
@@ -110,15 +109,20 @@ dal2Rpn(exp){
     }
 }
 
-  test() {
-    console.log(this.dal2Rpn('1 + 2'));
-    console.log(this.dal2Rpn('1 + 2 + 3'));
-    console.log(this.dal2Rpn('1 + 2 * 3'));
-    console.log(this.dal2Rpn('1 + 2 * 3 - 4 / 5'));
-    console.log(this.dal2Rpn('( 1 + 2 )'));
+getResult(fir: Number, sec: Number, cur) : Number {
+  let exp: string = fir + cur + sec;
+  return eval(exp);
+}
 
-    console.log(this.dal2Rpn('( 1 + 2 ) * ( 3 - 4 ) / 5'));
-    console.log(this.dal2Rpn('( 1 + 2 ) * (( 3 - 4 ) / 5)'));
+  test() {
+    console.log(this.evalRpn(this.dal2Rpn('1 + 2')));
+    console.log(this.evalRpn(this.dal2Rpn('1 + 2 + 3')));
+    console.log(this.evalRpn(this.dal2Rpn('1 + 2 * 3')));
+    console.log(this.evalRpn(this.dal2Rpn('1 + 2 * 3 - 4 / 5')));
+    console.log(this.evalRpn(this.dal2Rpn('( 1 + 2 )')));
+
+    console.log(this.evalRpn(this.dal2Rpn('( 1 + 2 ) * ( 3 - 4 ) / 5')));
+    console.log(this.evalRpn(this.dal2Rpn('( 1 + 2 ) * (( 3 - 4 ) / 5)')));
   }
 }
 
