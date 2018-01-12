@@ -85,6 +85,31 @@ dal2Rpn(exp){
     return outputQueue;
   }
 
+  evalRpn(rpnQueue){
+    var outputStack = [];
+    while(rpnQueue.length > 0){
+        var cur = rpnQueue.shift();
+
+        if(!this.isOperator(cur)){
+            outputStack.push(cur);
+        }else{
+            if(outputStack.length < 2){
+                throw "unvalid stack length";
+            }
+            var sec = outputStack.pop();
+            var fir = outputStack.pop();
+
+            outputStack.push(this.getResult(fir, sec, cur));
+        }
+    }
+
+    if(outputStack.length != 1){
+        throw "unvalid expression";
+    }else{
+        return outputStack[0];
+    }
+}
+
   test() {
     console.log(this.dal2Rpn('1 + 2'));
     console.log(this.dal2Rpn('1 + 2 + 3'));
