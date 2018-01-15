@@ -3,11 +3,10 @@ import { expect } from 'chai';
 import 'mocha';
 
 describe('Parser', () => {
-  it('push one value to Parser, can peek the value, and the Parser should not be empty', () => {
-    let parser = new Parser();
-  });
-
-  it('push one value to Parser, can pop the value, and the Parser should be  empty', () => {
-    let parser = new Parser();
+  let parser = new Parser();
+  it('1+2', () => {
+    let rpn = parser.dal2Rpn('1+2');
+    let result = parser.evalRpn(rpn);
+    expect(result).to.equal(3);
   });
 });

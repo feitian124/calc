@@ -1,37 +1,25 @@
-
-
-import Stack from "./Stack";
 import Operator from "./Operator";
 
 export default class Parser {
-  inputs: Stack;
-  outputs: Stack;
-
-  constructor() {
-    this.inputs = new Stack();
-    this.outputs = new Stack();
-  }
 
 dal2Rpn(exp){
-    var inputStack = [];
-    var outputStack = [];
-    var outputQueue = [];
+    let inputStack = [];
+    let outputStack = [];
+    let outputQueue = [];
 
-    console.log(exp);
-
-    for(var i = 0, len = exp.length; i < len; i++){
-        var cur = exp[i];
+    for(let i = 0, len = exp.length; i < len; i++){
+        let cur = exp[i];
         if(cur != ' ' ){
             inputStack.push(cur);
         }
     }
     while(inputStack.length > 0){
-        var cur = inputStack.shift();
+        let cur = inputStack.shift();
         if(Operator.isOperator(cur)){
             if(cur == '('){
                 outputStack.push(cur);
             }else if(cur == ')'){
-                var po = outputStack.pop();
+                let po = outputStack.pop();
                 while(po != '(' && outputStack.length > 0){
                     outputQueue.push(po);
                     po = outputStack.pop();
@@ -61,9 +49,9 @@ dal2Rpn(exp){
   }
 
   evalRpn(rpnQueue){
-    var outputStack = [];
+    let outputStack = [];
     while(rpnQueue.length > 0){
-        var cur = rpnQueue.shift();
+        let cur = rpnQueue.shift();
 
         if(!Operator.isOperator(cur)){
             outputStack.push(cur);
@@ -71,8 +59,8 @@ dal2Rpn(exp){
             if(outputStack.length < 2){
                 throw "unvalid stack length";
             }
-            var sec = outputStack.pop();
-            var fir = outputStack.pop();
+            let sec = outputStack.pop();
+            let fir = outputStack.pop();
 
             outputStack.push(this.getResult(fir, sec, cur));
         }
@@ -90,17 +78,13 @@ getResult(fir: Number, sec: Number, cur) : Number {
   return eval(exp);
 }
 
-  test() {
+test() {
     console.log(this.evalRpn(this.dal2Rpn('1 + 2')));
     console.log(this.evalRpn(this.dal2Rpn('1 + 2 + 3')));
     console.log(this.evalRpn(this.dal2Rpn('1 + 2 * 3')));
     console.log(this.evalRpn(this.dal2Rpn('1 + 2 * 3 - 4 / 5')));
     console.log(this.evalRpn(this.dal2Rpn('( 1 + 2 )')));
-
     console.log(this.evalRpn(this.dal2Rpn('( 1 + 2 ) * ( 3 - 4 ) / 5')));
     console.log(this.evalRpn(this.dal2Rpn('( 1 + 2 ) * (( 3 - 4 ) / 5)')));
   }
 }
-
-let parser = new Parser();
-parser.test();
