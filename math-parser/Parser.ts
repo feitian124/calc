@@ -1,89 +1,118 @@
+// http://www.jb51.net/article/53537.htm
+// http://blog.csdn.net/nkuhjp/article/details/53365036
+// http://blog.csdn.net/LoveLion/article/details/7713644
+// https://medium.freecodecamp.org/parsing-math-expressions-with-javascript-7e8f5572276e
+
 import Stack from "./Stack";
-import Operator from "./Operator";
 
 export default class Parser {
-  inputStack: Stack;
-  outputStack: Stack;
-  outputQueue: any[];
+  inputs: Stack;
+  outputs: Stack;
 
   constructor() {
-    this.inputStack = new Stack();
-    this.outputStack = new Stack();
-    this.outputQueue = [];
+    this.inputs = new Stack();
+    this.outputs = new Stack();
   }
 
-  dal2Rpn(exp) {
-    console.log(exp);
-    for (var i = 0, len = exp.length; i < len; i++) {
-      var cur = exp[i];
-      if (cur != ' ') {
-        this.inputStack.push(cur);
-      }
-    }
-    while (!this.inputStack.isEmpty()) {
-      var cur = this.inputStack.pop();
-      if (Operator.isOperator(cur)) {
-        if (cur == '(') {
-          this.outputStack.push(cur);
-        } else if (cur == ')') {
-          var po = this.outputStack.pop();
-          while (po != '(' && !this.outputStack.isEmpty()) {
-            this.outputQueue.push(po);
-            po = this.outputStack.pop();
-          }
-          if (po != '(') {
-            throw new Error('unmatched (),last  key: ' + po);
-          }
-        } else {
-          while (Operator.prioraty(cur, this.outputStack.peek()) && !this.outputStack.isEmpty()) {
-            this.outputQueue.push(this.outputStack.pop());
-          }
-          this.outputStack.push(cur);
-        }
-      } else {
-        this.outputQueue.push(new Number(cur));
-      }
-    }
-    if (!this.outputStack.isEmpty()) {
-      if (this.outputStack.peek() == ')' || this.outputStack.peek() == '(') {
-        throw "error: unmatched ()";
-      }
-      while (!this.outputStack.isEmpty()) {
-        this.outputQueue.push(this.outputStack.pop());
-      }
-    }
-    return this.outputQueue;
-  }
+  isOperator(value){
+    var operatorString = "+-*/()";
+    return operatorString.indexOf(value) > -1
+}
 
-  evalRpn(rpnQueue) {
+getPrioraty(value){
+    switch(value){
+        case '+':
+        case '-':
+            return 1;
+        case '*':
+        case '/':
+            return 2;
+        default:
+            return 0;
+    }
+}
+
+prioraty(o1, o2){
+    return this.getPrioraty(o1) <= this.getPrioraty(o2);
+}
+
+dal2Rpn(exp){
+    var inputStack = [];
     var outputStack = [];
-    while (rpnQueue.length > 0) {
-      var cur = rpnQueue.shift();
+    var outputQueue = [];
 
-      if (!Operator.isOperator(cur)) {
-        outputStack.push(cur);
-      } else {
-        if (outputStack.length < 2) {
-          throw "unvalid stack length";
+    console.log(exp);
+
+    for(var i = 0, len = exp.length; i < len; i++){
+        var cur = exp[i];
+        if(cur != ' ' ){
+            inputStack.push(cur);
         }
-        var sec = outputStack.pop();
-        var fir = outputStack.pop();
-
-        outputStack.push(this.getResult(fir, sec, cur));
-      }
     }
-
-    if (outputStack.length != 1) {
-      throw "unvalid expression";
-    } else {
-      return outputStack[0];
+    while(inputStack.length > 0){
+        var cur = inputStack.shift();
+        if(this.isOperator(cur)){
+            if(cur == '('){
+                outputStack.push(cur);
+            }else if(cur == ')'){
+                var po = outputStack.pop();
+                while(po != '(' && outputStack.length > 0){
+                    outputQueue.push(po);
+                    po = outputStack.pop();
+                }
+                if(po != '('){
+                    throw "error: unmatched ()";
+                }
+            }else{
+                while(this.prioraty(cur, outputStack[outputStack.length - 1]) && outputStack.length > 0){
+                    outputQueue.push(outputStack.pop());
+                }
+                outputStack.push(cur);
+            }
+        }else{
+            outputQueue.push(new Number(cur));
+        }
     }
+    if(outputStack.length > 0){
+        if(outputStack[outputStack.length - 1] == ')' || outputStack[outputStack.length - 1] == '('){
+            throw "error: unmatched ()";
+        }
+        while(outputStack.length > 0){
+            outputQueue.push(outputStack.pop());
+        }
+    }
+    return outputQueue;
   }
 
-  getResult(fir: Number, sec: Number, cur): Number {
-    let exp: string = fir + cur + sec;
-    return eval(exp);
-  }
+  evalRpn(rpnQueue){
+    var outputStack = [];
+    while(rpnQueue.length > 0){
+        var cur = rpnQueue.shift();
+
+        if(!this.isOperator(cur)){
+            outputStack.push(cur);
+        }else{
+            if(outputStack.length < 2){
+                throw "unvalid stack length";
+            }
+            var sec = outputStack.pop();
+            var fir = outputStack.pop();
+
+            outputStack.push(this.getResult(fir, sec, cur));
+        }
+    }
+
+    if(outputStack.length != 1){
+        throw "unvalid expression";
+    }else{
+        return outputStack[0];
+    }
+}
+
+getResult(fir: Number, sec: Number, cur) : Number {
+  let exp: string = fir + cur + sec;
+  return eval(exp);
+}
 
   test() {
     console.log(this.evalRpn(this.dal2Rpn('1 + 2')));
