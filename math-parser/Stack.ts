@@ -13,16 +13,22 @@ export default class Stack {
   }
 
   pop() {
+    if(this.isEmpty()) {
+      return null;
+    }
     let value = this.top.value;
     this.top = this.top.next;
     return value;
   }
 
   peek() {
+    if(this.isEmpty()) {
+      return null;
+    }
     return this.top.value;
   }
 
-  isEmpty() {
+  isEmpty(): boolean {
     return this.top === null;
   }
 }
