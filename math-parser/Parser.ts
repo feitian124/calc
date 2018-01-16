@@ -7,6 +7,7 @@ export default class Parser {
   rpn(exp) {
     let inputStack = [];
     let outputStack = [];
+    this.outputQueue = [];
 
     for (let i = 0, len = exp.length; i < len; i++) {
       let cur = exp[i];
@@ -70,7 +71,7 @@ export default class Parser {
     if (outputStack.length != 1) {
       throw "unvalid expression";
     } else {
-      return outputStack[0];
+      return Number(outputStack[0].toString());
     }
   }
 
