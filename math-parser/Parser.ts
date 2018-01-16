@@ -1,4 +1,5 @@
 import Operator from "./Operator";
+import { Big } from 'big.js';
 
 export default class Parser {
   outputQueue: any[] = [];
@@ -34,7 +35,7 @@ export default class Parser {
           outputStack.push(cur);
         }
       } else {
-        this.outputQueue.push(new Number(cur));
+        this.outputQueue.push(new Big(cur));
       }
     }
     if (outputStack.length > 0) {
@@ -73,8 +74,18 @@ export default class Parser {
     }
   }
 
-  getResult(fir: Number, sec: Number, cur): Number {
-    let exp: string = fir + cur + sec;
-    return eval(exp);
+  getResult(fir: Big, sec: Big, cur): Big {
+    switch (cur) {
+      case '+':
+        return fir.plus(sec);
+      case '-':
+        return fir.minus(sec);
+      case '*':
+        return fir.times(sec);
+      case '/':
+        return fir.div(sec);
+      default:
+        throw new Error('no operator found for key ' + cur);
+    }
   }
 }

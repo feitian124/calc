@@ -19,6 +19,7 @@
     "wepy-com-toast": "^1.0.2"
   },
   "devDependencies": {
+    "@types/big.js": "^4.0.2",
     "@types/chai": "^4.1.0",
     "@types/mocha": "^2.2.46",
     "babel-eslint": "^7.2.1",
