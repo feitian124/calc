@@ -8,7 +8,7 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceFolder}/math-parser/test/Parser.test.js",
+            "program": "${workspaceFolder}/math-parser/build.js",
             "outFiles": [
                 "${workspaceFolder}/**/*.js"
             ],

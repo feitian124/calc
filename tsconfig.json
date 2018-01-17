@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+      "module": "system",
+      "noImplicitAny": true,
+      "removeComments": false,
+      "preserveConstEnums": true,
+      "outFile": "math-parser/build.js",
+      "sourceMap": true
+  },
+  "include": [
+      "math-parser/**/*.ts"
+  ],
+  "exclude": [
+      "node_modules",
+      "**/*.spec.ts"
+  ]
+}

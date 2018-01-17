@@ -4,7 +4,7 @@ import { Big } from 'big.js';
 export default class Parser {
   outputQueue: any[] = [];
 
-  rpn(exp) {
+  rpn(exp: string) {
     let inputStack = [];
     let outputStack = [];
     this.outputQueue = [];
@@ -47,6 +47,7 @@ export default class Parser {
         this.outputQueue.push(outputStack.pop());
       }
     }
+    console.log(this.outputQueue);
     return this;
   }
 
@@ -75,7 +76,7 @@ export default class Parser {
     }
   }
 
-  getResult(fir: Big, sec: Big, cur): Big {
+  getResult(fir: Big, sec: Big, cur: string): Big {
     switch (cur) {
       case '+':
         return fir.plus(sec);
