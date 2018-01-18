@@ -1,4 +1,4 @@
-import Stack from '../Stack';
+import Stack from '../src/Stack';
 import { expect } from 'chai';
 import 'mocha';
 
