@@ -11,7 +11,23 @@ export default class Parser {
 
     for (let i = 0, len = exp.length; i < len; i++) {
       let cur = exp[i];
-      if (cur != ' ') {
+      // 读取多位数字, 如12.34
+      if ('0123456789'.indexOf(cur) >  -1) {
+        for(let j = i; j < len-1; j++) {
+          if(i >= len - 1) {
+            break;
+          }
+          let nextValue = exp[j+1];
+          if('.0123456789'.indexOf(nextValue) > -1) {
+            cur = cur.concat(nextValue);
+          } else {
+            inputStack.push(cur);
+            i = j;
+            break;
+          }
+        }
+
+      } else if(cur != ' ') {
         inputStack.push(cur);
       }
     }

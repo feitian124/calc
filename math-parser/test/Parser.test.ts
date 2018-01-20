@@ -4,7 +4,7 @@ import 'mocha';
 
 describe('Parser', () => {
   let parser = new Parser();
-  it('1+2', () => {
+  it('1 + 2', () => {
     expect(parser.rpn('1+2').result()).to.equal(3);
   });
 
