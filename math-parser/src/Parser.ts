@@ -47,7 +47,9 @@ export default class Parser {
         this.outputQueue.push(outputStack.pop());
       }
     }
-    console.log(this.outputQueue);
+    for (let entry of this.outputQueue) {
+      console.log(entry.toString());
+   }
     return this;
   }
 
