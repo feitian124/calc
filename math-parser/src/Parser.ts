@@ -14,7 +14,7 @@ export default class Parser {
       // 读取多位数字, 如12.34
       if ('0123456789'.indexOf(cur) >  -1) {
         for(let j = i; j < len-1; j++) {
-          if(i >= len - 1) {
+          if(j >= len - 1) {
             break;
           }
           let nextValue = exp[j+1];
@@ -26,11 +26,11 @@ export default class Parser {
             break;
           }
         }
-
       } else if(cur != ' ') {
         inputStack.push(cur);
       }
     }
+
     while (inputStack.length > 0) {
       let cur = inputStack.shift();
       if (Operator.isOperator(cur)) {
